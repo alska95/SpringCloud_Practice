@@ -22,4 +22,9 @@ public class FirstServiceController {
         log.info(header);
         return header + " : is first-request";
     }
+
+    @GetMapping("/check")
+    public String check(){
+        return "hi. This is message from first server";
+    }
 }
