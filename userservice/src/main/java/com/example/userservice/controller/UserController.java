@@ -4,8 +4,13 @@ import com.example.userservice.dto.UserDto;
 import com.example.userservice.service.UserService;
 import com.example.userservice.vo.Greeting;
 import com.example.userservice.vo.RequestUser;
+import com.example.userservice.vo.ResponseUser;
+import org.apache.catalina.mapper.Mapper;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -34,14 +39,18 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public String createUser(@RequestBody RequestUser requestUser){
+    public ResponseEntity<ResponseUser> createUser(@RequestBody RequestUser requestUser){
         UserDto userDto = new UserDto();
         userDto.setPwd(requestUser.getPwd());
         userDto.setName(requestUser.getName());
         userDto.setEmail(requestUser.getEmail());
 
         userService.createUser(userDto);
-        return "Create user method is called";
-}
+
+        ModelMapper mapper = new ModelMapper();
+        ResponseUser responseUser = mapper.map(userDto, ResponseUser.class);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
+    }
 
 }

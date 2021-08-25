@@ -6,8 +6,8 @@ import com.example.userservice.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.modelmapper.spi.MatchingStrategy;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService{
 
     @Transactional
     @Override
-    public UserDto createUser(UserDto userDto) {
+    public UserEntity createUser(UserDto userDto) {
         userDto.setUserId(UUID.randomUUID().toString());
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -38,7 +38,6 @@ public class UserServiceImpl implements UserService{
         log.info(userEntity.getName());
         userRepository.save(userEntity);
 
-
-        return null;
+        return userEntity;
     }
 }
