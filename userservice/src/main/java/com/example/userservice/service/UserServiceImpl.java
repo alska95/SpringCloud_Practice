@@ -6,13 +6,14 @@ import com.example.userservice.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -44,5 +45,20 @@ public class UserServiceImpl implements UserService{
         userRepository.save(userEntity);
 
         return userEntity;
+    }
+
+    public List<UserDto> findAllUser(){
+        List<UserDto> result = new ArrayList<>();
+        ModelMapper mapper = new ModelMapper();
+        userRepository.findAll().stream().forEach(user ->{
+            UserDto target = mapper.map(user , UserDto.class);
+            result.add(target);
+        });
+        return result;
+    }
+    public UserDto findUser(Long id){
+        ModelMapper mapper = new ModelMapper();
+        UserDto result = mapper.map(userRepository.find(id) , UserDto.class);
+        return result;
     }
 }

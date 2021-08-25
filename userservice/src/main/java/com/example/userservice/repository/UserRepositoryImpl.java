@@ -1,7 +1,6 @@
 package com.example.userservice.repository;
 
 import com.example.userservice.domain.UserEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -21,7 +20,7 @@ public class UserRepositoryImpl implements UserRepository{
     }
 
     @Override
-    public UserEntity find(int userId) {
+    public UserEntity find(Long userId) {
         UserEntity result = entityManager.find(UserEntity.class, userId);
         return result;
     }

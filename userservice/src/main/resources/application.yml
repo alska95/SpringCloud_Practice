@@ -16,6 +16,13 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/user-service/**
 
 eureka:
   instance:

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserRepository  {
     void save(UserEntity userEntity);
-    UserEntity find(int userId);
+    UserEntity find(Long userId);
     List<UserEntity> findAll();
 
 }
