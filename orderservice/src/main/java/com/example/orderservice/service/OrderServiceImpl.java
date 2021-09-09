@@ -4,7 +4,6 @@ package com.example.orderservice.service;
 import com.example.orderservice.domain.OrderEntity;
 import com.example.orderservice.dto.OrderDto;
 import com.example.orderservice.repository.OrderRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -38,16 +37,13 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public OrderDto getOrderByOrderId(String orderId) {
-        OrderEntity byOrderId = orderRepository.findByOrderId(orderId);
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        OrderDto orderDto = modelMapper.map(byOrderId, OrderDto.class);
-        return orderDto;
+    public Iterable<OrderEntity> getOrdersByOrderId(String orderId) {
+        Iterable<OrderEntity> byOrderId = orderRepository.findByOrderId(orderId);
+        return byOrderId;
     }
 
     @Override
-    public Iterable<OrderEntity> getAllCategories() {
+    public Iterable<OrderEntity> getAllOrders() {
         return orderRepository.findAll();
     }
 }

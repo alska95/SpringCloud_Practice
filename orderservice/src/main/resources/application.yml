@@ -21,10 +21,10 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: catalog-service
-          uri: lb://catalog-service
+        - id: order-service
+          uri: lb://order-service
           predicates:
-            - Path=/catalog-service/**
+            - Path=/order-service/**
 
 eureka:
   instance:
