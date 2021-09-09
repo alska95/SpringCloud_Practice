@@ -51,7 +51,7 @@ public class OrderController {
 
         ordersByOrderId.forEach(v ->{
             responseOrders.add(mapper.map(v , ResponseOrder.class));
-            System.out.println(v);
+
         });
 
         return ResponseEntity.status(HttpStatus.OK).body(responseOrders);
