@@ -1,15 +1,26 @@
 package com.example.userservice.security;
 
+import com.example.userservice.service.UserService;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.servlet.Filter;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
+
+    private UserService userService;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public WebSecurity(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userService = userService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     @Override//권한 설정
     protected void configure(HttpSecurity http) throws Exception {
@@ -26,5 +37,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         AuthenticationFilter authenticationFilter = new AuthenticationFilter();
         authenticationFilter.setAuthenticationManager(authenticationManager());
         return authenticationFilter;
+    }
+
+//    db_pwd(encrypted) == imput_pwd(encrypted)
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
     }
 }

@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class UserRepositoryImpl implements UserRepository{
+public class UserRepositoryImpl implements UserRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -28,5 +28,12 @@ public class UserRepositoryImpl implements UserRepository{
     @Override
     public List<UserEntity> findAll(){
         return entityManager.createQuery("select u from UserEntity u").getResultList();
+    }
+
+    @Override
+    public UserEntity findByEmail(String email) {
+        return entityManager.createQuery("select u from UserEntity u where u.email =: email" , UserEntity.class)
+                .setParameter("email" , email)
+                .getResultList().get(0);
     }
 }

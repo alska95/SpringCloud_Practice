@@ -7,6 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,5 +63,15 @@ public class UserServiceImpl implements UserService{
         ModelMapper mapper = new ModelMapper();
         UserDto result = mapper.map(userRepository.find(id) , UserDto.class);
         return result;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        UserEntity userEntity = userRepository.findByEmail(s);
+        if(userEntity == null)
+            throw new UsernameNotFoundException(s);
+        return new User(userEntity.getEmail() , userEntity.getEncryptedPwd(),
+                true, true,true, true,
+                new ArrayList<>());
     }
 }

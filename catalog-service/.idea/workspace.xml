@@ -5,12 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7617c693-e59c-4b8e-9f6d-c72122c7370d" name="Default Changelist" comment="catalogMicroService - 구현">
-      <change afterPath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/security/AuthenticationFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/vo/RequestLogin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../orderservice/src/main/java/com/example/orderservice/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../orderservice/src/main/java/com/example/orderservice/controller/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring-cloud-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-cloud-gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/repository/UserRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/repository/UserRepositoryImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/security/WebSecurity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/security/WebSecurity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/vo/Greeting.java" beforeDir="false" afterPath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/vo/Greeting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/service/UserServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
