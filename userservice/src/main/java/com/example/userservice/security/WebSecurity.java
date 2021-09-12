@@ -17,11 +17,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     private UserService userService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    private Environment env;
+    private final Environment env;
 
-    public WebSecurity(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public WebSecurity(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder, Environment env) {
         this.userService = userService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.env = env;
     }
 
     @Override//권한 설정
