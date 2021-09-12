@@ -21,10 +21,12 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
     private final Environment env;
 
     public AuthorizationHeaderFilter(Environment env){
+        super(Config.class);
         this.env = env;
     }
 
     public static class Config{
+
     }
 
     // login -> token -> user (with token) -> 토큰을 열어봐서 맞는지 아닌지 확인 header(include token)
