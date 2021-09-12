@@ -2,6 +2,7 @@ package com.example.userservice.security;
 
 import com.example.userservice.service.UserService;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,6 +17,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     private UserService userService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private Environment env;
 
     public WebSecurity(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userService = userService;
@@ -27,15 +29,16 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 //        http.authorizeRequests().antMatchers("/users/**").permitAll(); 뭐든지 허용하던 전략
         http.authorizeRequests().antMatchers("/**")
-            .hasIpAddress("192.168.35.1")
+            .hasIpAddress("127.0.0.1")
                 .and()
                 .addFilter(getAuthenticationFilter());
         http.headers().frameOptions().disable();
     }
 
     private AuthenticationFilter getAuthenticationFilter() throws Exception {
-        AuthenticationFilter authenticationFilter = new AuthenticationFilter();
-        authenticationFilter.setAuthenticationManager(authenticationManager());
+        AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManager() , userService , env);
+//        authenticationFilter.setAuthenticationManager(authenticationManager());
+
         return authenticationFilter;
     }
 

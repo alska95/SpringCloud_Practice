@@ -7,11 +7,8 @@
     <list default="true" id="7617c693-e59c-4b8e-9f6d-c72122c7370d" name="Default Changelist" comment="catalogMicroService - 구현">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../spring-cloud-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-cloud-gateway/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/repository/UserRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/repository/UserRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/security/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/security/AuthenticationFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/security/WebSecurity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/security/WebSecurity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/service/UserServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
