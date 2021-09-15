@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="faddaf55-1a3c-4fdb-a9e9-0db0bd404373" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../spring-cloud-gateway/src/main/resources/bootstrap.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../userservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../userservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/security/WebSecurity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/security/WebSecurity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring-cloud-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-cloud-gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring-cloud-gateway/src/main/java/com/example/springcloudgateway/SpringCloudGatewayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-cloud-gateway/src/main/java/com/example/springcloudgateway/SpringCloudGatewayApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring-cloud-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-cloud-gateway/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
