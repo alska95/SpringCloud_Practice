@@ -5,8 +5,13 @@ server:
 spring:
   application:
     name: config-service
+  profiles:
+    active: native
   cloud:
     config:
       server:
+        native:
+          search-locations: file:///${user.home}//I:\programming\Spring_Cloud\configurations
         git:
-          uri: https://github.com/alska95/SpringCloud_Practice.git
+          uri: https://github.com/alska95/SpringCloud_Practice/configurations.git
+#          uri: file://I:\programming\Spring_Cloud\configurations
