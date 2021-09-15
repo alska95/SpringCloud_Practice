@@ -37,9 +37,16 @@ eureka:
 
 
 
+
 greeting:
   message: Welcome to the simple E-Commerce.
 
 token:
   expiration-time: 3600000
   secret: user_token
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans

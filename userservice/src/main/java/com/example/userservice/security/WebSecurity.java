@@ -29,6 +29,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
 //        http.authorizeRequests().antMatchers("/users/**").permitAll(); 뭐든지 허용하던 전략
+        http.authorizeRequests().antMatchers("/actuator/**").permitAll();
         http.authorizeRequests().antMatchers("/**")
             .hasIpAddress("127.0.0.1")
                 .and()
@@ -43,7 +44,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         return authenticationFilter;
     }
 
-//    db_pwd(encrypted) == imput_pwd(encrypted)
+//    db_pwd(encrypted) == input_pwd(encrypted)
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
