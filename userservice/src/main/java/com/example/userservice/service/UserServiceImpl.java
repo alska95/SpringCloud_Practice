@@ -1,5 +1,6 @@
 package com.example.userservice.service;
 
+import com.example.userservice.client.OrderServiceClient;
 import com.example.userservice.domain.UserEntity;
 import com.example.userservice.dto.UserDto;
 import com.example.userservice.repository.UserRepository;
@@ -8,10 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -33,12 +31,14 @@ public class UserServiceImpl implements UserService{
     final BCryptPasswordEncoder passwordEncoder;
     final Environment env;
     final RestTemplate restTemplate;
+    final OrderServiceClient orderServiceClient;
 
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, Environment env, RestTemplate restTemplate) {
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, Environment env, RestTemplate restTemplate, OrderServiceClient orderServiceClient) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.env = env;
         this.restTemplate = restTemplate;
+        this.orderServiceClient = orderServiceClient;
     }
 
     @Transactional
@@ -74,11 +74,16 @@ public class UserServiceImpl implements UserService{
         ModelMapper mapper = new ModelMapper();
         UserDto result = mapper.map(userRepository.find(id) , UserDto.class);
         String orderUrl = String.format(env.getProperty("order_service.url"), id);
-        ResponseEntity<List<ResponseOrder>> orderListResponse =
-            restTemplate.exchange(orderUrl, HttpMethod.GET, null
-                    , new ParameterizedTypeReference<List<ResponseOrder>>() {
-                    });
-        List<ResponseOrder> orderList = orderListResponse.getBody();
+
+        /** restTemplate을 사용해서 서비스간 통신을 하는 방법*/
+//        ResponseEntity<List<ResponseOrder>> orderListResponse =
+//            restTemplate.exchange(orderUrl, HttpMethod.GET, null
+//                    , new ParameterizedTypeReference<List<ResponseOrder>>() {
+//                    });
+//        List<ResponseOrder> orderList = orderListResponse.getBody();
+
+        /** feignClient를 사용해서 서비스간 통신을 하는 방법법*/
+        List<ResponseOrder> orderList = orderServiceClient.getOrders(id);
         result.setOrderList(orderList);
         return result;
 
