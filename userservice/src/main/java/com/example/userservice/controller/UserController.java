@@ -75,7 +75,7 @@ public class UserController {
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<ResponseUser> findUser(@PathVariable Long userId){
+    public ResponseEntity<ResponseUser> findUser(@PathVariable String userId){
         UserDto user = userService.findUser(userId);
         ModelMapper mapper = new ModelMapper();
         ResponseUser result = mapper.map(user , ResponseUser.class);

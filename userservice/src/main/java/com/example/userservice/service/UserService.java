@@ -11,7 +11,7 @@ import java.util.List;
 public interface UserService extends UserDetailsService {
     UserEntity createUser(UserDto userDto);
     List<UserDto> findAllUser();
-    UserDto findUser(Long id);
+    UserDto findUser(String id);
     UserDetails loadUserByUsername(String s);
     UserDto getUserDetailsByEmail(String userName);
 }

@@ -20,8 +20,10 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public UserEntity find(Long userId) {
-        UserEntity result = entityManager.find(UserEntity.class, userId);
+    public UserEntity find(String userId) {
+        UserEntity result = entityManager.createQuery("select u from UserEntity u where u.userId =: userId" , UserEntity.class)
+                .setParameter("userId" , userId)
+                .getResultList().get(0);
         return result;
     }
 
