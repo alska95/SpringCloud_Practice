@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Data
@@ -30,7 +31,8 @@ public class OrderServiceImpl implements OrderService{
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         OrderEntity orderEntity = mapper.map(orderDetails , OrderEntity.class);
-
+        Date date = new Date();
+        orderEntity.setCreatedAt(date);
         orderRepository.save(orderEntity);
         OrderDto retValue = mapper.map(orderEntity , OrderDto.class);
         return retValue;
