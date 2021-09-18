@@ -5,6 +5,7 @@ import com.example.orderservice.dto.OrderDto;
 import com.example.orderservice.service.OrderService;
 import com.example.orderservice.vo.RequestOrder;
 import com.example.orderservice.vo.ResponseOrder;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/order-service") //게이트웨이에서 붙는 prefix
 public class OrderController {
@@ -44,14 +46,14 @@ public class OrderController {
     public ResponseEntity<List<ResponseOrder>> getOrder(
             @PathVariable String userId) {
 
-        Iterable<OrderEntity> ordersByOrderId = orderService.getOrdersByOrderId(userId);
+        Iterable<OrderEntity> ordersByOrderId = orderService.getOrdersByUserId(userId);
         ModelMapper mapper = new ModelMapper();
         List<ResponseOrder> responseOrders = new ArrayList<>();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         ordersByOrderId.forEach(v ->{
             responseOrders.add(mapper.map(v , ResponseOrder.class));
-
+            log.info(v.getProductId());
         });
 
         return ResponseEntity.status(HttpStatus.OK).body(responseOrders);

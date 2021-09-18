@@ -37,8 +37,8 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Iterable<OrderEntity> getOrdersByOrderId(String orderId) {
-        Iterable<OrderEntity> byOrderId = orderRepository.findByOrderId(orderId);
+    public Iterable<OrderEntity> getOrdersByUserId(String userId) {
+        Iterable<OrderEntity> byOrderId = orderRepository.findByUserId(userId);
         return byOrderId;
     }
 

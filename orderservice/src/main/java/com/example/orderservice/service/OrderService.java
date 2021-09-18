@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface OrderService {
     OrderDto createOrder(OrderDto orderDetails);
-    Iterable<OrderEntity> getOrdersByOrderId(String orderId);
+    Iterable<OrderEntity> getOrdersByUserId(String userId);
     Iterable<OrderEntity> getAllOrders();
 }

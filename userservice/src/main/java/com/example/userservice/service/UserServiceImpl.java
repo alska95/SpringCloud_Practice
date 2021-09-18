@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService{
         }catch (FeignException ex){
             log.error(ex.getMessage());
         }
-        result.setOrderList(orderList);
+        result.setOrders(orderList);
         return result;
     }
 
