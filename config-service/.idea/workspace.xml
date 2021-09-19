@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="faddaf55-1a3c-4fdb-a9e9-0db0bd404373" name="Default Changelist" comment="Config - native file 경로">
-      <change afterPath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/error/FeignErrorDecoder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/UserserviceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/UserserviceApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/service/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring-cloud-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-cloud-gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring-cloud-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-cloud-gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../userservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../userservice/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../userservice/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../userservice/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -66,7 +68,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1631616366984</updated>
-      <workItem from="1631616370645" duration="7226000" />
+      <workItem from="1631616370645" duration="8141000" />
     </task>
     <task id="LOCAL-00001" summary="Config - native file 경로">
       <created>1631699704408</created>
