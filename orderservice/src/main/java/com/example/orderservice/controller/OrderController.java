@@ -2,6 +2,7 @@ package com.example.orderservice.controller;
 
 import com.example.orderservice.domain.OrderEntity;
 import com.example.orderservice.dto.OrderDto;
+import com.example.orderservice.messagequeue.KafkaProducer;
 import com.example.orderservice.service.OrderService;
 import com.example.orderservice.vo.RequestOrder;
 import com.example.orderservice.vo.ResponseOrder;
@@ -21,9 +22,11 @@ import java.util.List;
 @RequestMapping("/order-service") //게이트웨이에서 붙는 prefix
 public class OrderController {
     final OrderService orderService;
+    final KafkaProducer kafkaProducer;
 
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, KafkaProducer kafkaProducer) {
         this.orderService = orderService;
+        this.kafkaProducer = kafkaProducer;
     }
 
     @GetMapping("/health-check")
@@ -39,6 +42,11 @@ public class OrderController {
         orderDto.setUserId(userId);
         orderService.createOrder(orderDto);
         ResponseOrder responseOrder = mapper.map(orderDto , ResponseOrder.class);
+
+        /* send this order to the kafka*/
+        kafkaProducer.send("example-catalog-topic" , orderDto);
+
+
         return ResponseEntity.status(HttpStatus.OK).body(responseOrder);
     }
 

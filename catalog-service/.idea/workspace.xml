@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7617c693-e59c-4b8e-9f6d-c72122c7370d" name="Default Changelist" comment="catalogMicroService - 구현">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/catalogservice/messagequeue/KafkaConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/catalogservice/messagequeue/KafkaConsumerConfig.java" afterDir="false" />
+    <list default="true" id="7617c693-e59c-4b8e-9f6d-c72122c7370d" name="Default Changelist" comment="catalogMicroService - Kafka적용&#10;orderService에서 produce된 메시지 받아서 db업데이트함.(consumer)&#10;order정보의 productId를 가져옴 -&gt; order의 quantity만큼 수량 제거">
+      <change afterPath="$PROJECT_DIR$/../orderservice/src/main/java/com/example/orderservice/messagequeue/KafkaProducer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../orderservice/src/main/java/com/example/orderservice/messagequeue/KafkaProducerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/catalogservice/messagequeue/KafkaConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/catalogservice/messagequeue/KafkaConsumer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/catalogservice/messagequeue/KafkaConsumerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/catalogservice/messagequeue/KafkaConsumerConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../orderservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../orderservice/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../orderservice/src/main/java/com/example/orderservice/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../orderservice/src/main/java/com/example/orderservice/controller/OrderController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../orderservice/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../orderservice/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -42,8 +46,25 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
   </component>
   <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CatalogServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="catalog-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.catalogservice.CatalogServiceApplication" />
@@ -63,7 +84,7 @@
       <workItem from="1629987008022" duration="9365000" />
       <workItem from="1630300620920" duration="3874000" />
       <workItem from="1631047833639" duration="6672000" />
-      <workItem from="1636063015043" duration="411000" />
+      <workItem from="1636063015043" duration="1946000" />
     </task>
     <task id="LOCAL-00001" summary="catalogMicroService - 구현">
       <created>1629989322804</created>
@@ -72,7 +93,14 @@
       <option name="project" value="LOCAL" />
       <updated>1629989322804</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="catalogMicroService - Kafka적용&#10;orderService에서 produce된 메시지 받아서 db업데이트함.(consumer)&#10;order정보의 productId를 가져옴 -&gt; order의 quantity만큼 수량 제거">
+      <created>1636063850969</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1636063850969</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -93,6 +121,7 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="catalogMicroService - 구현" />
-    <option name="LAST_COMMIT_MESSAGE" value="catalogMicroService - 구현" />
+    <MESSAGE value="catalogMicroService - Kafka적용&#10;orderService에서 produce된 메시지 받아서 db업데이트함.(consumer)&#10;order정보의 productId를 가져옴 -&gt; order의 quantity만큼 수량 제거" />
+    <option name="LAST_COMMIT_MESSAGE" value="catalogMicroService - Kafka적용&#10;orderService에서 produce된 메시지 받아서 db업데이트함.(consumer)&#10;order정보의 productId를 가져옴 -&gt; order의 quantity만큼 수량 제거" />
   </component>
 </project>

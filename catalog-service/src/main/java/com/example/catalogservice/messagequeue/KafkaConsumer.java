@@ -21,7 +21,7 @@ public class KafkaConsumer {
         this.catalogRepository = catalogRepository;
     }
 
-    @KafkaListener(topics = "example-catalog-topic")
+    @KafkaListener(topics = "example-catalog-topic") //해당 토픽의 변경을 캐치
     public void updateQuantity(String kafkaMessage){
         log.info("kafaka Message: --> "+ kafkaMessage);
 
