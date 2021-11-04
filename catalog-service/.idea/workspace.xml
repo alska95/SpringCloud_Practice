@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7617c693-e59c-4b8e-9f6d-c72122c7370d" name="Default Changelist" comment="catalogMicroService - 구현">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../spring-cloud-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-cloud-gateway/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/security/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/security/AuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/security/WebSecurity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../userservice/src/main/java/com/example/userservice/security/WebSecurity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/catalogservice/messagequeue/KafkaConsumer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/catalogservice/messagequeue/KafkaConsumerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../orderservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../orderservice/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../orderservice/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../orderservice/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +41,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../spring-cloud-gateway" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager">
     <configuration name="CatalogServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
@@ -62,6 +63,7 @@
       <workItem from="1629987008022" duration="9365000" />
       <workItem from="1630300620920" duration="3874000" />
       <workItem from="1631047833639" duration="6672000" />
+      <workItem from="1636063015043" duration="411000" />
     </task>
     <task id="LOCAL-00001" summary="catalogMicroService - 구현">
       <created>1629989322804</created>
