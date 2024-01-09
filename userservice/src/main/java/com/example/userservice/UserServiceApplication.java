@@ -1,6 +1,5 @@
 package com.example.userservice;
 
-import com.example.userservice.error.FeignErrorDecoder;
 import feign.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,12 +11,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-@EnableEurekaClient
+@EnableEurekaClient //유레카 클라이언트가 됨.
 @EnableFeignClients
-public class UserserviceApplication {
+public class UserServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(UserserviceApplication.class, args);
+        SpringApplication.run(UserServiceApplication.class, args);
     }
 
     @Bean
