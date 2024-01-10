@@ -16,5 +16,5 @@ spring:
         web-allow-others: true
       path: /h2_db
   datasource:
-    url: jdbc:h2:tcp://localhost/~/test
+    url: jdbc:h2:mem:test
     username: '{cipher}a6039e6e000035a9549cb586a655594ef1cffb73bb5868c12ad96e926e700109'
