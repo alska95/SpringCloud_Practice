@@ -3,5 +3,6 @@ spring:
     config:
       uri: http://127.0.0.1:8888
       name: ecommerce
-    profiles:
-      active: dev
+      profile: default
+
+#application.yml보다 우선 순위가 높은 설정파일이다.

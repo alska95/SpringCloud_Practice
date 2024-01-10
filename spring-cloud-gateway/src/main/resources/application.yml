@@ -22,6 +22,10 @@ spring:
     name: gateway-service
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
       routes:
         - id: first-service
           uri: lb://my-first-service
@@ -44,10 +48,10 @@ spring:
                 baseMessage: Hi, there.
                 preLogger: true
                 postLogger: true
-#        - id: user-service
-#          uri: lb://user-service
-#          predicates:
-#            - Path=/user-service/**
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/user-service/**
         - id: user-service
           uri: lb://user-service
           predicates:
@@ -93,7 +97,7 @@ spring:
       default-filters:
         - name: GlobalFilter
           args:
-            baseMessa3ge: Spring Cloud Gateway GlobalFilter
+            baseMessage: Spring Cloud Gateway GlobalFilter
             preLogger: true
             postLogger: true
 
