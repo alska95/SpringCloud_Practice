@@ -19,7 +19,8 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/order-service") //게이트웨이에서 붙는 prefix
+//@RequestMapping("/order-service") //게이트웨이에서 붙는 prefix
+@RequestMapping("") //게이트웨이에 segment적용
 public class OrderController {
     final OrderService orderService;
     final KafkaProducer kafkaProducer;
@@ -50,9 +51,8 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(responseOrder);
     }
 
-    @GetMapping("/{userId}/orders") //requestparam은 뒤에 ? 쿼리로 가져오는것 햇갈리지말자
-    public ResponseEntity<List<ResponseOrder>> getOrder(
-            @PathVariable String userId) {
+    @GetMapping("/{userId}/orders")
+    public ResponseEntity<List<ResponseOrder>> getOrder(@PathVariable String userId) {
 
         Iterable<OrderEntity> ordersByOrderId = orderService.getOrdersByUserId(userId);
         ModelMapper mapper = new ModelMapper();

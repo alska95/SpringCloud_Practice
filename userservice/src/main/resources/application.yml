@@ -36,7 +36,7 @@ eureka:
 
 order_service:
 #  url: http://127.0.0.1:8000/order-service/%s/orders
-  url: http://order-service/order-service/%s/orders
+  url: http://order-service/%s/orders
   exception:
     orders_is_empty: order is empty
 

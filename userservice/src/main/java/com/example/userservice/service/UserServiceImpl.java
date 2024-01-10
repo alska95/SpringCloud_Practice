@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService{
     public UserDto findUser(String id){
         ModelMapper mapper = new ModelMapper();
         UserDto result = mapper.map(userRepository.find(id) , UserDto.class);
-        String orderUrl = String.format(env.getProperty("order_service.url"), id);
+//        String orderUrl = String.format(env.getProperty("order_service.url"), id);
 
         /** restTemplate을 사용해서 서비스간 통신을 하는 방법*/
 //        ResponseEntity<List<ResponseOrder>> orderListResponse =

@@ -29,7 +29,7 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
 
     @Override
     public GatewayFilter apply(Config config) {
-        return (((exchange, chain) -> {
+        return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
             ServerHttpResponse response = exchange.getResponse();
 
@@ -42,7 +42,7 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
                     log.info("Global Filter End: response code -> {}" , response.getStatusCode());
                 }
             }));
-        }));
+        };
     }
 }
 

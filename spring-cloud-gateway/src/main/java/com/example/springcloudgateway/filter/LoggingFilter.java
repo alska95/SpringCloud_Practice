@@ -15,15 +15,12 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class LoggingFilter extends AbstractGatewayFilterFactory<LoggingFilter.Config> {
 
-
-
     @Data
     public static class Config {
         private String baseMessage;
         private boolean preLogger;
         private boolean postLogger;
     }
-
 
     public LoggingFilter(){
         super(Config.class);
@@ -46,7 +43,7 @@ public class LoggingFilter extends AbstractGatewayFilterFactory<LoggingFilter.Co
             }));
         }));*/
 
-        GatewayFilter filter = new OrderedGatewayFilter((exchange, chain) -> {
+        return new OrderedGatewayFilter((exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
             ServerHttpResponse response = exchange.getResponse();
 
@@ -59,8 +56,6 @@ public class LoggingFilter extends AbstractGatewayFilterFactory<LoggingFilter.Co
                     log.info("Logging Filter End: response code -> {}" , response.getStatusCode());
                 }
             }));
-        }, Ordered.HIGHEST_PRECEDENCE); //자식 클래스의 용도
-
-        return filter;
+        }, Ordered.HIGHEST_PRECEDENCE);
     }
 }
