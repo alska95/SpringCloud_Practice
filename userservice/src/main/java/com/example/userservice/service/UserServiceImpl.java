@@ -109,9 +109,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepository.findByEmail(s);
-        if(userEntity == null)
-            throw new UsernameNotFoundException(s);
+        UserEntity userEntity = userRepository.findByEmail(s).orElseThrow(() -> new UsernameNotFoundException(s));
 
         return new User(userEntity.getEmail() , userEntity.getEncryptedPwd(),
                 true, true,true, true,
@@ -119,13 +117,10 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserDto getUserDetailsByEmail(String userName) {
-        UserEntity byEmail = userRepository.findByEmail(userName);
-        if(byEmail == null)
-            throw new UsernameNotFoundException(userName);
+    public UserDto getUserByEmail(String userName) {
+        UserEntity byEmail = userRepository.findByEmail(userName).orElseThrow(() -> new UsernameNotFoundException(userName));
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        UserDto result = mapper.map(byEmail, UserDto.class);
-        return result;
+        return mapper.map(byEmail, UserDto.class);
     }
 }

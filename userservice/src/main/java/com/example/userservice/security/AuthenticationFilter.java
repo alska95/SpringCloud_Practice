@@ -41,6 +41,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                                                 HttpServletResponse response) throws AuthenticationException {
         try{
             RequestLogin creds = new ObjectMapper().readValue(request.getInputStream(), RequestLogin.class);
+            //    DaoAuthenticationProvider.additionalAuthenticationChecks에서 비밀번호 검사가 이루어짐
             return getAuthenticationManager().authenticate(
                     new UsernamePasswordAuthenticationToken(
                             creds.getEmail() ,
@@ -48,7 +49,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                             new ArrayList<>()
                     )
             );
-        }catch (Exception e){
+        } catch (Exception e){
             throw new RuntimeException(e);
         }
     }
@@ -58,16 +59,16 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                                             HttpServletResponse response,
                                             FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
-        String userName = ((User) authResult.getPrincipal()).getUsername();
-        UserDto userDetails = userService.getUserDetailsByEmail(userName);
+        UserDto userDto = userService.getUserByEmail(((User) authResult.getPrincipal()).getUsername());
 
         String token = Jwts.builder()
-                .setSubject(userDetails.getUserId())
+                .setSubject(userDto.getUserId())
                 .setExpiration(new Date(System.currentTimeMillis() +
-                        Long.parseLong(env.getProperty("token.expiration-time"))))
+                        Long.parseLong(env.getProperty("token.expiration"))))
                 .signWith(SignatureAlgorithm.HS512, env.getProperty("token.secret"))
                 .compact();
         response.addHeader("token" , token);
-        response.addHeader("userId" , userDetails.getUserId());
+        response.addHeader("userId" , userDto.getUserId());
+        getSuccessHandler().onAuthenticationSuccess(request, response, chain, authResult);
     }
 }

@@ -13,11 +13,7 @@ spring:
     name: user-service
   jpa:
     hibernate:
-      ddl-auto: create
-  cloud:
-    config:
-      uri: http://127.0.0.1/8888
-      name: user-service
+      ddl-auto: update
     gateway:
       routes:
         - id: user-service

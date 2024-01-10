@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping
 public class UserController {
 
     private final UserService userService;
@@ -42,9 +42,8 @@ public class UserController {
                 + ", with token time=" + env.getProperty("token.expiration");
     }
 
-    @GetMapping("/welcome")
+    @GetMapping("/")
     public String welcome(){
-//        return greeting.getMessage();
         return env.getProperty("greeting.message");
     }
 

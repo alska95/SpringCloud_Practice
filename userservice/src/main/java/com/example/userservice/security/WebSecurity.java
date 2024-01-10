@@ -25,7 +25,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         this.env = env;
     }
 
-    @Override//권한 설정
+    @Override //권한 설정
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
 //        http.authorizeRequests().antMatchers("/users/**").permitAll(); 뭐든지 허용하던 전략
@@ -38,9 +38,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     }
 
     private AuthenticationFilter getAuthenticationFilter() throws Exception {
-        AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManager() , userService , env);
-//        authenticationFilter.setAuthenticationManager(authenticationManager());
-
+        AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManager() , userService, env);
+        authenticationFilter.setAuthenticationSuccessHandler(new CustomAuthenticationSuccessHandler());
         return authenticationFilter;
     }
 

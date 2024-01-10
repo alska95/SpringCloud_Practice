@@ -8,10 +8,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
+//Authentication을 위해 userDetailsService상속 필요.
 public interface UserService extends UserDetailsService {
     UserEntity createUser(UserDto userDto);
     List<UserDto> findAllUser();
     UserDto findUser(String id);
     UserDetails loadUserByUsername(String s);
-    UserDto getUserDetailsByEmail(String userName);
+    UserDto getUserByEmail(String userName);
 }

@@ -1,2 +1,4 @@
 encrypt:
   key: rkskekfkakqktkdkwkckzkxkvk #편의상 public으로 관리
+  #keyStore로 관리도 가능
+  #keyStore사용하면 local에 privateKey보관 예정

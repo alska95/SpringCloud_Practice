@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -20,11 +21,10 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public UserEntity find(String userId) {
-        UserEntity result = entityManager.createQuery("select u from UserEntity u where u.userId =: userId" , UserEntity.class)
+    public Optional<UserEntity> find(String userId) {
+        return Optional.ofNullable(entityManager.createQuery("select u from UserEntity u where u.userId =: userId" , UserEntity.class)
                 .setParameter("userId" , userId)
-                .getResultList().get(0);
-        return result;
+                .getSingleResult());
     }
 
     @Override
@@ -33,9 +33,9 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public UserEntity findByEmail(String email) {
-        return entityManager.createQuery("select u from UserEntity u where u.email =: email" , UserEntity.class)
+    public Optional<UserEntity> findByEmail(String email) {
+        return Optional.ofNullable(entityManager.createQuery("select u from UserEntity u where u.email =: email" , UserEntity.class)
                 .setParameter("email" , email)
-                .getResultList().get(0);
+                .getSingleResult());
     }
 }
