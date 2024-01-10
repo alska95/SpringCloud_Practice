@@ -1,0 +1,3 @@
+brew install rabbitmq
+export PATH=$PATH:/user/local/sbin
+rabbitmq-server

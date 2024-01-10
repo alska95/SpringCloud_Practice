@@ -1,0 +1,59 @@
+* Kafka
+    * zookeeper 및 kafka 구동
+    KAFKA_HOME/bin/zookeeper-server-start.sh (KAFKA_HOME/config/zookeeper.properties)
+        sh zookeeper-server-start.sh ../config/zookeeper.properties
+    KAFKA_HOME/bin/kafka-server-start.sh (KAFKA_HOME/config/server.properties)
+        sh kafka-server-start.sh ../config/server.properties
+
+
+    * dafault포트 9092. H2를 내장된 db를 사용하지 않고 외부에 따로 띄우게되면 9092포트를 사용하게 돼서 충돌남. 포트를 따로 지정하거나 인메모리 사용
+
+    * Topic 생성
+    /kafka-topics.sh --create --topic quickstart-events --bootstrap-server localhost:9092 --partitions 1
+
+    * Topic 목록 확인
+    /kafka-topics.sh --bootstrap-server localhost:9092 --list
+
+    * Topic 목록 확인
+    /kafka-topics.sh --describe --topic quickstart-events --bootstrap-server localhost:9092
+
+    * Producer 테스트
+    /kafka-console-producer.sh --broker-list localhost:9092 --topic quickstart-events
+
+    * Consumer 테스트
+    /kafka-console-consumer.sh --broker-list localhost:9092 --topic quickstart-events
+
+* Kafka Connect
+    카프카 커넥트를 통해 데이터를 import/export가능하다.
+    코드 없이 configuration으로 데이터 이동
+    standalone, distribution mode 지원
+        - rest api 통해 지원
+        - stream 또는 batch 형태로 데이터 전송 가능
+        - 커스텀 connector을 통한 다양한 plugin 제공
+
+    * 설치
+        curl -O http://packages.confluent.io/archive/6.1/confluent-community-6.1.0.tar.gz
+
+    * 설정
+        connect-distributes.properties
+    * Jdbc Connector필요
+        https://www.confluent.io/hub/confluentinc/kafka-connect-jdbc
+        connect-distributes.properties아래에 plugin 정보 추가
+        plugin.path=/usr/share/java, /Users/user/Desktop/git/SpringCloud_Practice/supportsub/confluentinc-kafka-connect-jdbc-10.7.4/lib
+        mysql connector도 /share/java/kafka에 추가
+
+example)
+{
+    "name" : "my-connect",
+    "config" : {
+        "connector.class" : "io.confluent.connect.jdbc.JdbcSourceConnector",
+        "connection.url" : "jdbc:mysql://localhost:3306/test",
+        "connection.user" : "root",
+        "connection.password" : "",
+        "mode" : "incrementing",
+        "incrementing.column.name" : "id",
+        "table.whitelist" : "users",
+        "topic.prefix" : "my_topic_",
+        "task.max" : "1"
+    }
+}

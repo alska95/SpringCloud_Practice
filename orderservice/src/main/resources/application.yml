@@ -9,7 +9,7 @@ spring:
       enabled: true
       settings:
         web-allow-others: true
-      path: /h2_db
+      path: /h2-console
   datasource:
     url: jdbc:h2:tcp://localhost/~/test
     username: sa
