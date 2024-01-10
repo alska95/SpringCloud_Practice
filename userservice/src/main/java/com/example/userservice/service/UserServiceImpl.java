@@ -30,6 +30,13 @@ public class UserServiceImpl implements UserService{
 
     final UserRepository userRepository;
     final BCryptPasswordEncoder passwordEncoder;
+    /**
+     * PropertySourceBootstrapConfiguration의 insertPropertySources에서 springCloudConfig에서 가져온 설정이 environment에 세팅됨.
+     * 이렇게 세팅된 environment는 AbstractApplicationContext에서 아래 코드로 등록됨.
+     *  if (!beanFactory.containsLocalBean("environment")) {
+     *             beanFactory.registerSingleton("environment", this.getEnvironment());
+     *         }
+     * */
     final Environment env;
     final RestTemplate restTemplate;
     final OrderServiceClient orderServiceClient;
