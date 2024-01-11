@@ -16,7 +16,7 @@ public class KafkaProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public OrderDto send(String topic, OrderDto orderDto){ //주문이 들어오면 send를 호출해서 kafka를 통해 동기화 시켜준다.
+    public OrderDto produceOrderProductMessage(String topic, OrderDto orderDto){ //주문이 들어오면 send를 호출해서 kafka를 통해 동기화 시켜준다.
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString ="";
         try{

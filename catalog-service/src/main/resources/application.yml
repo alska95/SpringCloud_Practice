@@ -9,13 +9,13 @@ spring:
       enabled: true
       settings:
         web-allow-others: true
-      path: /h2_db
+      path: /h2-console
   datasource:
-    url: jdbc:h2:tcp://localhost/~/test
+    url: jdbc:h2:mem:test
     username: sa
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
     generate-ddl: true
   cloud:
@@ -25,6 +25,9 @@ spring:
           uri: lb://catalog-service
           predicates:
             - Path=/catalog-service/**
+  kafka:
+    consumer:
+      group-id: consumer-group-id
 
 eureka:
   instance:

@@ -13,7 +13,7 @@ import java.util.Date;
 public class CatalogEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(nullable = false, length = 120, unique = true)
@@ -28,5 +28,6 @@ public class CatalogEntity implements Serializable {
 
     @ColumnDefault(value = "CURRENT_TIMESTAMP")
     private Date createdAt;
-
+    @Column()
+    private Date modeDate;
 }

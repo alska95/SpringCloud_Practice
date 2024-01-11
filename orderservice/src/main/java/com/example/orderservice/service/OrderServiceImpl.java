@@ -3,45 +3,54 @@ package com.example.orderservice.service;
 
 import com.example.orderservice.domain.OrderEntity;
 import com.example.orderservice.dto.OrderDto;
+import com.example.orderservice.messagequeue.KafkaProducer;
 import com.example.orderservice.repository.OrderRepository;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Data
 @Slf4j
 @Service
 public class OrderServiceImpl implements OrderService{
 
-    final OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
+    private final KafkaProducer kafkaProducer;
+    private final ModelMapper modelMapper;
 
-    public OrderServiceImpl(OrderRepository orderRepository) {
+
+    public OrderServiceImpl(OrderRepository orderRepository, KafkaProducer kafkaProducer, ModelMapper modelMapper) {
         this.orderRepository = orderRepository;
+        this.kafkaProducer = kafkaProducer;
+        this.modelMapper = modelMapper;
     }
 
+    @Transactional
     @Override
     public OrderDto createOrder(OrderDto orderDetails) {
         orderDetails.setOrderId(UUID.randomUUID().toString());
         orderDetails.setTotalPrice(orderDetails.getQuantity() * orderDetails.getUnitPrice());
-        ModelMapper mapper = new ModelMapper();
-        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        OrderEntity orderEntity = mapper.map(orderDetails , OrderEntity.class);
-        Date date = new Date();
-        orderEntity.setCreatedAt(date);
+
+        OrderEntity orderEntity = modelMapper.map(orderDetails , OrderEntity.class);
+        orderEntity.setCreatedAt(new Date());
         orderRepository.save(orderEntity);
-        OrderDto retValue = mapper.map(orderEntity , OrderDto.class);
-        return retValue;
+
+        OrderDto orderDto = modelMapper.map(orderEntity, OrderDto.class);
+        kafkaProducer.produceOrderProductMessage("order-product" , orderDto);
+        return orderDto;
     }
 
     @Override
-    public Iterable<OrderEntity> getOrdersByUserId(String userId) {
-        Iterable<OrderEntity> byOrderId = orderRepository.findByUserId(userId);
-        return byOrderId;
+    public List<OrderEntity> getOrderListByUserId(String userId) {
+        return StreamSupport.stream(orderRepository.findByUserId(userId).spliterator(), false).collect(Collectors.toList());
     }
 
     @Override
