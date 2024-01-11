@@ -7,7 +7,7 @@ CREATE TABLE orders
     totalPrice INT          NOT NULL,
     userId     VARCHAR(255) NOT NULL,
     orderId    VARCHAR(255) NOT NULL UNIQUE,
-    createdAt  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    createdAt  NOT NULL
 );
 
 INSERT INTO orders

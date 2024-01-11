@@ -28,10 +28,9 @@ public class OrderEntity implements Serializable {
 
     @Column(nullable = false)
     private String userId;
-    @Column(nullable = false , unique = true)
+    @Column(nullable = false, unique = true)
     private String orderId;
 
-    @ColumnDefault(value = "CURRENT_TIMESTAMP")
-    private Date createdAt;
-
+    @Column(nullable = false)
+    private Date createdAt = new Date();
 }

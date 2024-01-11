@@ -44,7 +44,8 @@ public class OrderServiceImpl implements OrderService{
         orderRepository.save(orderEntity);
 
         OrderDto orderDto = modelMapper.map(orderEntity, OrderDto.class);
-        kafkaProducer.produceOrderProductMessage("order-product" , orderDto);
+        kafkaProducer.produceOrderCatalogMessage(orderDto);
+        kafkaProducer.produceOrderDbSyncMessage(orderDto);
         return orderDto;
     }
 

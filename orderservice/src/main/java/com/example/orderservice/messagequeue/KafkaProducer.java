@@ -4,28 +4,44 @@ import com.example.orderservice.dto.OrderDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
 public class KafkaProducer {
-    final KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final ModelMapper modelMapper;
+    private final ObjectMapper objectMapper;
 
-    public KafkaProducer(KafkaTemplate<String, String> kafkaTemplate) {
+    public KafkaProducer(KafkaTemplate<String, String> kafkaTemplate, ModelMapper modelMapper, ObjectMapper objectMapper) {
         this.kafkaTemplate = kafkaTemplate;
+        this.modelMapper = modelMapper;
+        this.objectMapper = objectMapper;
     }
 
-    public OrderDto produceOrderProductMessage(String topic, OrderDto orderDto){ //주문이 들어오면 send를 호출해서 kafka를 통해 동기화 시켜준다.
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonInString ="";
-        try{
-            jsonInString = mapper.writeValueAsString(orderDto);
-        }catch (JsonProcessingException ex){
+    @Value("${kafka.topic.order.catalog}")
+    private String orderCatalogTopic;
+    @Value("${kafka.topic.order.sync}")
+    private String orderSyncTopic;
+
+    private Object produceOrderMessage(String topic, Object dto) {
+        try {
+            kafkaTemplate.send(topic, objectMapper.writeValueAsString(dto));
+            log.info("Kafka Producer sent data from the Order microService" + dto);
+        } catch (JsonProcessingException ex) {
             ex.printStackTrace();
         }
-        kafkaTemplate.send(topic, jsonInString);
-        log.info("Kafka Producer sent data from the Order microService" + orderDto);
-        return orderDto;
+        return dto;
+    }
+
+    public OrderDto produceOrderCatalogMessage(OrderDto orderDto) {
+        return modelMapper.map(produceOrderMessage(orderCatalogTopic, orderDto), OrderDto.class);
+    }
+
+    public OrderDto produceOrderDbSyncMessage(OrderDto orderDto) {
+        return modelMapper.map(produceOrderMessage(orderSyncTopic, orderDto), OrderDto.class);
     }
 }

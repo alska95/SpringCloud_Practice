@@ -15,27 +15,27 @@ import java.util.Map;
 @Service
 @Slf4j
 public class KafkaConsumer {
-    final CatalogRepository catalogRepository;
+    private final CatalogRepository catalogRepository;
+    private final ObjectMapper objectMapper;
 
-    public KafkaConsumer(CatalogRepository catalogRepository) {
+    public KafkaConsumer(CatalogRepository catalogRepository, ObjectMapper objectMapper) {
         this.catalogRepository = catalogRepository;
+        this.objectMapper = objectMapper;
     }
 
     @Transactional
-    @KafkaListener(topics = "order-product")
-    public void consumeOrderProductMessage(String kafkaMessage){
+    @KafkaListener(topics = "${kafka.topic.order.catalog}")
+    public void consumeOrderCatalogMessage(String kafkaMessage){
         log.info("kafaka Message: --> "+ kafkaMessage);
-
-        ObjectMapper mapper = new ObjectMapper();
         try {
-            Map<Object, Object> map = mapper.readValue(kafkaMessage, new TypeReference<Map<Object, Object>>() {});
+            Map<Object, Object> map = objectMapper.readValue(kafkaMessage, new TypeReference<>() {});
             catalogRepository.findByProductId((String) map.get("productId")).ifPresent(product -> {
                 product.setStock(product.getStock() - (Integer) map.get("qty"));
                 product.setModeDate(new Date());
             });
         } catch (JsonProcessingException ex) {
             ex.printStackTrace();
-            ;
         }
     }
+
 }
