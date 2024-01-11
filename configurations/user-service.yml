@@ -14,7 +14,7 @@ spring:
       enabled: true
       settings:
         web-allow-others: true
-      path: /h2_db
+      path: /h2-console
   datasource:
-    url: jdbc:h2:mem:test
-    username: '{cipher}a6039e6e000035a9549cb586a655594ef1cffb73bb5868c12ad96e926e700109'
+    url: jdbc:mysql://localhost:3306/test
+    username: '{cipher}abc7c43bc0213d35bd2012a80ccef8d5377c6dc70da4ba14fc3dd84b1a348b4c'

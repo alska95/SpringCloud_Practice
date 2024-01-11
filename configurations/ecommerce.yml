@@ -4,3 +4,14 @@ token:
 
 gateway:
   ip: 127.0.0.1
+
+kafka:
+  topic:
+    order:
+      catalog: 'order-catalog'
+      sync: 'order-db-sync'
+
+spring:
+  kafka:
+    consumer:
+      group-id: consumer-group-id
