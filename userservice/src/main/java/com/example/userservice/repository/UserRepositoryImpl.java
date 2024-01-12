@@ -14,27 +14,28 @@ public class UserRepositoryImpl implements UserRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
+
     @Override
     public void save(UserEntity userEntity) {
         entityManager.persist(userEntity);
     }
 
     @Override
-    public Optional<UserEntity> findByUserId(String userId) {
-        return entityManager.createQuery("select u from UserEntity u where u.userId =: userId" , UserEntity.class)
+    public Optional<UserEntity> find(String userId) {
+        return Optional.ofNullable(entityManager.createQuery("select u from UserEntity u where u.userId =: userId" , UserEntity.class)
                 .setParameter("userId" , userId)
-                .getResultStream().findFirst();
+                .getSingleResult());
     }
 
     @Override
     public List<UserEntity> findAll(){
-        return entityManager.createQuery("select u from UserEntity u", UserEntity.class).getResultList();
+        return entityManager.createQuery("select u from UserEntity u").getResultList();
     }
 
     @Override
     public Optional<UserEntity> findByEmail(String email) {
-        return entityManager.createQuery("select u from UserEntity u where u.email =: email" , UserEntity.class)
+        return Optional.ofNullable(entityManager.createQuery("select u from UserEntity u where u.email =: email" , UserEntity.class)
                 .setParameter("email" , email)
-                .getResultStream().findFirst();
+                .getSingleResult());
     }
 }
