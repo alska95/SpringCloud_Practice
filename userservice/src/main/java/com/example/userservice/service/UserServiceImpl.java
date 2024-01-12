@@ -4,12 +4,12 @@ import com.example.userservice.client.OrderServiceClient;
 import com.example.userservice.domain.UserEntity;
 import com.example.userservice.dto.UserDto;
 import com.example.userservice.repository.UserRepository;
-import com.example.userservice.vo.ResponseOrder;
-import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 
+import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,7 +26,7 @@ import java.util.UUID;
 
 @Service
 @Slf4j
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     final UserRepository userRepository;
     final BCryptPasswordEncoder passwordEncoder;
@@ -40,13 +40,17 @@ public class UserServiceImpl implements UserService{
     final Environment env;
     final RestTemplate restTemplate;
     final OrderServiceClient orderServiceClient;
+    final CircuitBreakerFactory circuitBreakerFactory;
+    final ModelMapper modelMapper;
 
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, Environment env, RestTemplate restTemplate, OrderServiceClient orderServiceClient) {
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, Environment env, RestTemplate restTemplate, OrderServiceClient orderServiceClient, CircuitBreakerFactory circuitBreakerFactory, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.env = env;
         this.restTemplate = restTemplate;
         this.orderServiceClient = orderServiceClient;
+        this.circuitBreakerFactory = circuitBreakerFactory;
+        this.modelMapper = modelMapper;
     }
 
     @Transactional
@@ -78,10 +82,11 @@ public class UserServiceImpl implements UserService{
         return result;
     }
 
-    public UserDto findUser(String id){
-        ModelMapper mapper = new ModelMapper();
-        UserDto result = mapper.map(userRepository.find(id) , UserDto.class);
-//        String orderUrl = String.format(env.getProperty("order_service.url"), id);
+    public UserDto findUser(String userId){
+        CircuitBreaker orderCircuitBreaker = circuitBreakerFactory.create("orderCircuitBreaker");
+        UserDto result = userRepository.findByUserId(userId).map(userEntity -> modelMapper.map(userEntity, UserDto.class))
+                .orElseThrow(() -> new IllegalArgumentException("[UserService] user not exist. UID: " + userId));
+//        String orderUrl = String.format(env.getProperty("order_service.url"), userId);
 
         /** restTemplate을 사용해서 서비스간 통신을 하는 방법*/
 //        ResponseEntity<List<ResponseOrder>> orderListResponse =
@@ -91,19 +96,20 @@ public class UserServiceImpl implements UserService{
 //        List<ResponseOrder> orderList = orderListResponse.getBody();
 
         /** feignClient를 사용해서 서비스간 통신을 하는 방법법*/
-//        List<ResponseOrder> orderList = orderServiceClient.getOrders(id);
+//        List<ResponseOrder> orderList = orderServiceClient.getOrders(userId);
 
         /** feign Exception Handling*/
 
-//        /*FeignErrorDecoder이 대신해줌*/
+        /** FeignErrorDecoder이 대신해줌*/
 //        List<ResponseOrder> orderList = null;
 //        try{
-//            orderList = orderServiceClient.getOrders(id);
+//            orderList = orderServiceClient.getOrders(userId);
 //        }catch (FeignException ex){
 //            log.error(ex.getMessage());
 //        }
-        List<ResponseOrder> orderList = orderServiceClient.getOrders(id);
-        result.setOrders(orderList);
+
+        //CircuitBreaker사용해서 orderService에서 요청을 처리할 수 없는 경우 요청을 보내지 않고 List.of()를 반환함.
+        result.setOrders(orderCircuitBreaker.run(() -> orderServiceClient.getOrders(userId), throwable -> List.of()));
         return result;
     }
 
