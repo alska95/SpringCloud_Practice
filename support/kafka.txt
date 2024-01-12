@@ -9,19 +9,27 @@
     * dafault포트 9092. H2를 내장된 db를 사용하지 않고 외부에 따로 띄우게되면 9092포트를 사용하게 돼서 충돌남. 포트를 따로 지정하거나 인메모리 사용
 
     * Topic 생성
-    /kafka-topics.sh --create --topic quickstart-events --bootstrap-server localhost:9092 --partitions 1
+    sh kafka-topics.sh --create --topic quickstart-events --bootstrap-server localhost:9092 --partitions 1
+
+    * Topic 삭제 (데이터가 오염돼서 사용)
+    sh kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic order-db-sync
+    데이터가 오염돼서 사용함.
+    오염된 메시지 건너뛰기 위한 설정도 고려
 
     * Topic 목록 확인
-    /kafka-topics.sh --bootstrap-server localhost:9092 --list
+    sh kafka-topics.sh --bootstrap-server localhost:9092 --list
 
-    * Topic 목록 확인
-    /kafka-topics.sh --describe --topic quickstart-events --bootstrap-server localhost:9092
+    * Topic 정보 확인
+    sh kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic order-db-sync --from-beginning
+
+    * Topic 안의 메시지 확인
+    sh kafka-topics.sh --describe --topic quickstart-events --bootstrap-server localhost:9092
 
     * Producer 테스트
-    /kafka-console-producer.sh --broker-list localhost:9092 --topic quickstart-events
+    sh kafka-console-producer.sh --broker-list localhost:9092 --topic quickstart-events
 
     * Consumer 테스트
-    /kafka-console-consumer.sh --broker-list localhost:9092 --topic quickstart-events
+    sh kafka-console-consumer.sh --broker-list localhost:9092 --topic quickstart-events
 
 * Kafka Connect
     카프카 커넥트를 통해 데이터를 import/export가능하다.
@@ -42,7 +50,19 @@
         plugin.path=/usr/share/java, /Users/user/Desktop/git/SpringCloud_Practice/supportsub/confluentinc-kafka-connect-jdbc-10.7.4/lib
         mysql connector도 /share/java/kafka에 추가
 
-example)
+    * 실행
+        sh connect-distributed ./etc/kafka/connect-distributed.properties
+
+    * 등록
+        /connectors POST호출
+
+* Source Connector
+    - users테이블의 변경사항을 my_topic_ prefix를 가진 topic으로 전달
+    - 일정 시간 단위로 데이터를 풀링해옴 (pool.interval.ms)
+    - 변경 감지 방식
+        incrementing.column.name: 지정된 칼럼의 유니크 증분값을 기준으로 새로운 데이터를 확인
+        timestamp.column.name: 지정된 칼럼의 시간값을 기준으로 새로운 데이터를 확인
+        Timestamp + Incrementing 도 가능하다.
 {
     "name" : "my-connect",
     "config" : {
@@ -55,5 +75,26 @@ example)
         "table.whitelist" : "users",
         "topic.prefix" : "my_topic_",
         "task.max" : "1"
+    }
+}
+
+* Sink Connector
+    - topic에서 메시지를 읽어 db로 전송
+{
+    "name" : "order-sink-connector",
+    "config" : {
+        "connector.class" : "io.confluent.connect.jdbc.JdbcSinkConnector",
+        "connection.url" : "jdbc:mysql://localhost:3306/test",
+        "connection.user" : "root",
+        "connection.password" : "",
+        "auto.create":"false", //테이블 자동 생성
+        "auto.evolve":"true", //스키마가 변경되면 db의 스키마도 업데이트
+        "delete.enabled":"false", //db delete질의 수행 여부
+        "topics" : "order-db-sync",
+        "table.name.format": "orders", //목표 테이블명. 없으면 topics를 테이블 명으로 써버림
+        "task.max" : "1",
+        "errors.tolerance": "all" , //데이터가 오염돼서 넣은 설정. none: 즉시 실패 all: 오류 무시하고 다음 메시지 처리
+        "errors.log.enable": "true", //에러 로그. 안넣으면 콘솔에 에러 로그 안남음.
+        "errors.retry.timeout" : 1000 //ms단위 동안 재시도하고 안되면 버림
     }
 }

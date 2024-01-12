@@ -3,7 +3,7 @@ package com.example.orderservice.service;
 
 import com.example.orderservice.domain.OrderEntity;
 import com.example.orderservice.dto.OrderDto;
-import com.example.orderservice.messagequeue.KafkaProducer;
+import com.example.orderservice.messagequeue.KafkaProducerService;
 import com.example.orderservice.repository.OrderRepository;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -23,29 +23,29 @@ import java.util.stream.StreamSupport;
 public class OrderServiceImpl implements OrderService{
 
     private final OrderRepository orderRepository;
-    private final KafkaProducer kafkaProducer;
+    private final KafkaProducerService kafkaProducerService;
     private final ModelMapper modelMapper;
 
 
-    public OrderServiceImpl(OrderRepository orderRepository, KafkaProducer kafkaProducer, ModelMapper modelMapper) {
+    public OrderServiceImpl(OrderRepository orderRepository, KafkaProducerService kafkaProducerService, ModelMapper modelMapper) {
         this.orderRepository = orderRepository;
-        this.kafkaProducer = kafkaProducer;
+        this.kafkaProducerService = kafkaProducerService;
         this.modelMapper = modelMapper;
     }
 
     @Transactional
     @Override
-    public OrderDto createOrder(OrderDto orderDetails) {
-        orderDetails.setOrderId(UUID.randomUUID().toString());
-        orderDetails.setTotalPrice(orderDetails.getQuantity() * orderDetails.getUnitPrice());
+    public OrderDto createOrder(OrderDto orderDto) {
+        orderDto.setOrderId(UUID.randomUUID().toString());
+        orderDto.setTotalPrice(orderDto.getQuantity() * orderDto.getUnitPrice());
 
-        OrderEntity orderEntity = modelMapper.map(orderDetails , OrderEntity.class);
-        orderEntity.setCreatedAt(new Date());
-        orderRepository.save(orderEntity);
+//        OrderEntity orderEntity = modelMapper.map(orderDto , OrderEntity.class);
+//        orderEntity.setCreatedAt(new Date());
+//        orderRepository.save(orderEntity);
+//        OrderDto orderDto = modelMapper.map(orderEntity, OrderDto.class);
 
-        OrderDto orderDto = modelMapper.map(orderEntity, OrderDto.class);
-        kafkaProducer.produceOrderCatalogMessage(orderDto);
-        kafkaProducer.produceOrderDbSyncMessage(orderDto);
+        kafkaProducerService.produceOrderCatalogMessage(orderDto);
+        kafkaProducerService.produceOrderDbSyncMessage(orderDto);
         return orderDto;
     }
 

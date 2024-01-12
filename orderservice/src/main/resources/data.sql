@@ -1,13 +1,14 @@
 CREATE TABLE orders
 (
-    id         BIGINT PRIMARY KEY AUTO_INCREMENT,
-    productId  VARCHAR(120) NOT NULL,
-    unitPrice  INT          NOT NULL,
-    quantity   INT          NOT NULL,
-    totalPrice INT          NOT NULL,
-    userId     VARCHAR(255) NOT NULL,
-    orderId    VARCHAR(255) NOT NULL UNIQUE,
-    createdAt  NOT NULL
+    id          BIGINT       NOT NULL AUTO_INCREMENT,
+    product_id  VARCHAR(120) NOT NULL,
+    unit_price  INT          NOT NULL,
+    quantity    INT          NOT NULL,
+    total_price INT          NOT NULL,
+    user_id     VARCHAR(255) NOT NULL,
+    order_id    VARCHAR(255) NOT NULL UNIQUE,
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
 );
 
 INSERT INTO orders

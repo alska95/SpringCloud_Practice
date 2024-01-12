@@ -1,16 +1,17 @@
 package com.example.orderservice.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class OrderDto {
+public class OrderDto implements Serializable {
+    private static final long serialVersionUID = 6227694826431799292L;
+
     private String productId;
-    @JsonProperty("qty")
     private Integer quantity;
     private Integer unitPrice;
     private Integer totalPrice;
-
     private String orderId;
     private String userId;
 }

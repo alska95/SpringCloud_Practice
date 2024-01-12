@@ -30,7 +30,7 @@ public class KafkaConsumer {
         try {
             Map<Object, Object> map = objectMapper.readValue(kafkaMessage, new TypeReference<>() {});
             catalogRepository.findByProductId((String) map.get("productId")).ifPresent(product -> {
-                product.setStock(product.getStock() - (Integer) map.get("qty"));
+                product.setStock(product.getStock() - (Integer) map.get("quantity"));
                 product.setModeDate(new Date());
             });
         } catch (JsonProcessingException ex) {

@@ -1,7 +1,7 @@
 package com.example.orderservice.controller;
 
 import com.example.orderservice.dto.OrderDto;
-import com.example.orderservice.messagequeue.KafkaProducer;
+import com.example.orderservice.messagequeue.KafkaProducerService;
 import com.example.orderservice.service.OrderService;
 import com.example.orderservice.vo.RequestOrder;
 import com.example.orderservice.vo.ResponseOrder;
@@ -21,12 +21,12 @@ import java.util.stream.Collectors;
 @RequestMapping("") //게이트웨이에 segment적용
 public class OrderController {
     final OrderService orderService;
-    final KafkaProducer kafkaProducer;
+    final KafkaProducerService kafkaProducerService;
     final ModelMapper modelMapper;
 
-    public OrderController(OrderService orderService, KafkaProducer kafkaProducer, ModelMapper modelMapper) {
+    public OrderController(OrderService orderService, KafkaProducerService kafkaProducerService, ModelMapper modelMapper) {
         this.orderService = orderService;
-        this.kafkaProducer = kafkaProducer;
+        this.kafkaProducerService = kafkaProducerService;
         this.modelMapper = modelMapper;
     }
 
