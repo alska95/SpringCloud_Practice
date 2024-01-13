@@ -51,7 +51,10 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public List<OrderEntity> getOrderListByUserId(String userId) {
-        return StreamSupport.stream(orderRepository.findByUserId(userId).spliterator(), false).collect(Collectors.toList());
+        log.info("[OrderService] Before search order list"); //sleuth 사용 위해서 로깅. 나중에 AOP이용해서 처리해도 괜찮을듯
+        List<OrderEntity> resultList = StreamSupport.stream(orderRepository.findByUserId(userId).spliterator(), false).collect(Collectors.toList());
+        log.info("[OrderService] After search order list");
+        return resultList;
     }
 
     @Override

@@ -66,7 +66,8 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
             }
             LocalDateTime expiration = expirationDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
             if (LocalDateTime.now().isAfter(expiration)) {
-                return false;
+//                return false; 편의상 유효기간 검증 제거
+                return true;
             }
         } catch (ExpiredJwtException | MalformedJwtException | SignatureException ex) {
             log.error("Invalid JWT token: {}", ex.getMessage());

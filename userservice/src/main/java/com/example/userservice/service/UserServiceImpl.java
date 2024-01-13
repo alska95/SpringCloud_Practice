@@ -108,8 +108,10 @@ public class UserServiceImpl implements UserService {
 //            log.error(ex.getMessage());
 //        }
 
+        log.info("[UserService] Before call orderService");
         //CircuitBreaker사용해서 orderService에서 요청을 처리할 수 없는 경우 요청을 보내지 않고 List.of()를 반환함.
         result.setOrders(orderCircuitBreaker.run(() -> orderServiceClient.getOrders(userId), throwable -> List.of()));
+        log.info("[UserService] After call orderService");
         return result;
     }
 

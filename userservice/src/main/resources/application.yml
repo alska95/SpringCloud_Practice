@@ -5,6 +5,12 @@ server:
   # 서비스 디스커버리에 등록되어 있기 때문에 무작위로 포트가 생성되어도 트래킹이 가능하고 lb를 통하여 올바른 요청을 보낼 수 있다.
 
 spring:
+  zipkin:
+    base-url: http://localhost:9411
+    enabled: true
+  sleuth:
+    sampler:
+      probability: 1.0
   #config-server에 설정을 가져오기 위해 springCloudBus를 이용한다.
   #번거롭게 actuator에서 refresh 호출하는것보다 효율적이다.
   #분산되어있는 시스템끼리 연결해주기 위해 메시지브로커가 필요한데 메시지 브로커 역할로 rabbitMq를 사용한다.

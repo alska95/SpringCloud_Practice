@@ -51,7 +51,7 @@
         mysql connector도 /share/java/kafka에 추가
 
     * 실행
-        sh connect-distributed ./etc/kafka/connect-distributed.properties
+        sh connect-distributed ../etc/kafka/connect-distributed.properties
 
     * 등록
         /connectors POST호출

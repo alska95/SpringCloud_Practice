@@ -12,6 +12,12 @@ kafka:
       sync: 'order-db-sync'
 
 spring:
+  zipkin:
+    base-url: http://localhost:9411
+    enabled: true
+  sleuth:
+    sampler:
+      probability: 1.0
   kafka:
     consumer:
       group-id: consumer-group-id
