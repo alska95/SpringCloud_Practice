@@ -62,7 +62,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans, busrefresh, info, prometheus, metric
+        include: refresh, health, beans, busrefresh, info, prometheus, metrics
 logging:
   level:
     com.example: info
