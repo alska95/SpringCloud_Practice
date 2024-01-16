@@ -25,6 +25,6 @@ management:
   endpoints:
     web:
       exposure:
-        include: health, busrefresh
+        include: health, refresh, busrefresh, prometheus, metric
 
 #지원 url actuator/env, actuator/health, {yml명}/{profile(default)

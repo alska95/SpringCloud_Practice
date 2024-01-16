@@ -23,6 +23,13 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
+        <!--모니터링-->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+        <!--모니터링-->
+
 <!--분산 추적-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

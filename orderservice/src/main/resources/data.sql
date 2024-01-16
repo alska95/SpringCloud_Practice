@@ -12,6 +12,6 @@ CREATE TABLE orders
 );
 
 INSERT INTO orders
-    (productId, unitPrice, quantity, totalPrice, userId, orderId, createdAt)
+    (product_id, unit_price, quantity, total_price, user_id, order_id, created_at)
 VALUES
     ('product1', 1000, 10, 2000, 'user', 'order', NOW());

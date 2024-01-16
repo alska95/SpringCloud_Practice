@@ -22,7 +22,9 @@ public class CaseMapper {
 
     public <T, R> R map(T source, Class<R> targetClass) {
         R result = instantiateTargetClass(targetClass);
-        mapFields(source, result, targetClass);
+        Arrays.stream(targetClass.getDeclaredFields())
+                .filter(this::isNotStaticOrFinal)
+                .forEach(resultField -> mapField(source, result, resultField));
         return result;
     }
 
@@ -32,12 +34,6 @@ public class CaseMapper {
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             throw new RuntimeException("Failed to create an instance of " + targetClass.getName() + ". Need default constructor.", e);
         }
-    }
-
-    private <T, R> void mapFields(T source, R result, Class<R> targetClass) {
-        Arrays.stream(targetClass.getDeclaredFields())
-                .filter(this::isNotStaticOrFinal)
-                .forEach(resultField -> mapField(source, result, resultField));
     }
 
     private boolean isNotStaticOrFinal(Field field) {
@@ -53,7 +49,7 @@ public class CaseMapper {
             resultField.setAccessible(true);
             resultField.set(result, sourceField.get(source));
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("[CaseMapper] Error occurred while mapping case.", e);
         }
     }
 

@@ -21,3 +21,11 @@ spring:
   kafka:
     consumer:
       group-id: consumer-group-id
+  datasource:
+    initialization-mode: never
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, busrefresh, info, prometheus, metric

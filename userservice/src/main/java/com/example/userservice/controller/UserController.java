@@ -5,6 +5,7 @@ import com.example.userservice.service.UserService;
 import com.example.userservice.vo.Greeting;
 import com.example.userservice.vo.RequestUser;
 import com.example.userservice.vo.ResponseUser;
+import io.micrometer.core.annotation.Timed;
 import org.apache.catalina.mapper.Mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ public class UserController {
     }
 
     @GetMapping("/health-check")
+    @Timed(value = "users.status", longTask = true) //actuator metric, prometheus에서 모니터링 가능
     public String status(HttpServletRequest request){
         return "It's working in user service on Port : "
                 + env.getProperty("local.server.port") + " from request : "
@@ -43,6 +45,7 @@ public class UserController {
     }
 
     @GetMapping("/")
+    @Timed(value = "users.welcome", longTask = true)
     public String welcome(){
         return env.getProperty("greeting.message");
     }

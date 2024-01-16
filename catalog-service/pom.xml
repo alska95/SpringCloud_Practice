@@ -18,6 +18,14 @@
         <spring-cloud.version>2020.0.3</spring-cloud.version>
     </properties>
     <dependencies>
+
+        <!--모니터링-->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+        <!--모니터링-->
+
         <!--분산 추적-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

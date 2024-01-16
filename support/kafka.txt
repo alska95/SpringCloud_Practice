@@ -5,6 +5,9 @@
     KAFKA_HOME/bin/kafka-server-start.sh (KAFKA_HOME/config/server.properties)
         sh kafka-server-start.sh ../config/server.properties
 
+    * zookeeper 도중에 중지되어 트랜잭션 로그를 적용할 스냅샷을 찾지 못하는 경우
+    https://stackoverflow.com/questions/59694099/zookeeper-java-io-ioexception-no-snapshot-found-but-there-are-log-entries-so
+
 
     * dafault포트 9092. H2를 내장된 db를 사용하지 않고 외부에 따로 띄우게되면 9092포트를 사용하게 돼서 충돌남. 포트를 따로 지정하거나 인메모리 사용
 
