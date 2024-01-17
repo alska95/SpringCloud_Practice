@@ -16,4 +16,14 @@ Prometheus
 
 Grafana
 - 데이터 시각화
-- 다운로드 : https://grafana.com/grafana/download
+- 다운로드 : https://grafana.com/grafana/download 아니면 클라우드 써도됨
+- 디폴트 설정 :
+    포트: 3000
+    아이디, 비번: admin
+    필요한 설정 :
+        - 데이터 소스 추가 : prometheus추가하고 url입력
+        - 데쉬보드 추가 : 직접 만들거나 import해오기
+            -import url: https://grafana.com/grafana/dashboards/ 여기서 jvm, prometheus, springCloud 등 찾아서 넣기
+                -id값
+                prometheus : 3662
+                spring cloud gateway : 11506
