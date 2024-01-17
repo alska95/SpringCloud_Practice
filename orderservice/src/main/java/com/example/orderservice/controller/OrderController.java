@@ -5,6 +5,7 @@ import com.example.orderservice.messagequeue.KafkaProducerService;
 import com.example.orderservice.service.OrderService;
 import com.example.orderservice.vo.RequestOrder;
 import com.example.orderservice.vo.ResponseOrder;
+import io.micrometer.core.annotation.Timed;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 @RestController
 //@RequestMapping("/order-service") //게이트웨이에서 붙는 prefix
 @RequestMapping("") //게이트웨이에 segment적용
+@Timed(value = "order", longTask = true)
 public class OrderController {
     final OrderService orderService;
     final KafkaProducerService kafkaProducerService;

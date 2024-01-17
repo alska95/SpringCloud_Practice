@@ -66,6 +66,7 @@ public class UserController {
     }
 
     @GetMapping("/user")
+    @Timed(value = "users.findAllUsers", longTask = true)
     public ResponseEntity<List<ResponseUser>> findAllUsers(){
         ModelMapper mapper = new ModelMapper();
         List<ResponseUser> result = new ArrayList<>();
@@ -77,6 +78,7 @@ public class UserController {
     }
 
     @GetMapping("/user/{userId}")
+    @Timed(value = "users.findUser", longTask = true)
     public ResponseEntity<ResponseUser> findUser(@PathVariable String userId){
         UserDto user = userService.findUser(userId);
         ModelMapper mapper = new ModelMapper();
