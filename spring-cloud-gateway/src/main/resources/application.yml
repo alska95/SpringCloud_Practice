@@ -85,10 +85,24 @@ spring:
         - id: catalog-service
           uri: lb://catalog-service
           predicates:
+            - Path=/catalog-service/actuator/**
+            - Method=GET,POST
+          filters:
+            - RewritePath=/catalog-service/(?<segment>.*),/$\{segment}
+        - id: catalog-service
+          uri: lb://catalog-service
+          predicates:
             - Path=/catalog-service/**
 
 
 #order-service
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/order-service/actuator/**
+            - Method=GET,POST
+          filters:
+            - RewritePath=/order-service/(?<segment>.*),/$\{segment}
         - id: order-service
           uri: lb://order-service
           predicates:
