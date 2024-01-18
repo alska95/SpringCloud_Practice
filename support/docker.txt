@@ -2,6 +2,7 @@
 
 run 옵션들 :
     -d : 컨테이너를 백그라운드에서 실행하며 컨테이너 ID를 출력한다.
+        안쓰면 해당 어플리케이션의 로그가 터미널에 계속 출력됨. 디버깅할때나 쓰면 될듯
     -i : 컨테이너의 표준 입력을 열어둔다.
     -t : 가상 터미널을 할당한다.
     -it : 보통 이렇게 같이 사용하여 터미널을 연다.
@@ -44,3 +45,11 @@ mysql 실행
                 "Gateway": "172.18.0.1"
             }
         ]
+
+
+config-service 컨테이너 이미지
+    이미지 실행: docker run -d --name config-service -p 8888:8888 -e spring.rabbitmq.host=rabbitmq spring.profiles.active=default --network ecommerce-network rhsalska55/config-service:1.0
+    브릿지 네트워크 사용: -e spring.rabbitmq.host=rabbitmq
+        application.yml설정을 매번 바뀌는 rabbitmq url과 맞춰서 변경해야하는 일을 방지해준다.
+    로그 확인하는법: docker logs -f my-container
+        -f 옵션은 실시간 업데이트
