@@ -7,7 +7,7 @@ run 옵션들 :
     -it : 보통 이렇게 같이 사용하여 터미널을 연다.
     --name : 컨테이너에 이름을 지정한다.
     -p : 호스트와 컨테이너 간의 포트 매핑을 설정한다.
-        -P 나 --publish-all 옵션을 사용하면 자동으로 expose로 지정된 모든 포트를 사용 가능한 호스트 포트에 매핑한다.
+        -P 나 --publish-all 옵션을 사용하면 자동으로 expose로 지정된 모든 포트를 사용 가능한 호스트 포트에 매핑한다. (랜덤 포트 매핑되니까 직접 지정해줄것)
     -v : 호스트와 컨테이너 간의 볼륨을 연결한다.
     --rm : 컨테이너가 종료되면 자동으로 삭제한다.
     -e : 컨테이너 내에서 사용할 환경 변수를 설정한다.
@@ -23,6 +23,7 @@ mysql 실행
     삭제 docker rmi ${이미지id}
     레파지토리 풀 docker pull rhsalska55/userservice:1.0
     이미지 실행 docker run rhsalska55/userservice:1.0
+    정지 docker stop rhsalska55/userservice:1.0
 
 도커 브릿지 네트워크
     동일한 호스트의 도커 컨테이너 간의 네트워크 통신을 가능하게 한다.
@@ -43,4 +44,3 @@ mysql 실행
                 "Gateway": "172.18.0.1"
             }
         ]
-
