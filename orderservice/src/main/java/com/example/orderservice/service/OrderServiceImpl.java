@@ -39,14 +39,12 @@ public class OrderServiceImpl implements OrderService{
         orderDto.setOrderId(UUID.randomUUID().toString());
         orderDto.setTotalPrice(orderDto.getQuantity() * orderDto.getUnitPrice());
 
-//        OrderEntity orderEntity = modelMapper.map(orderDto , OrderEntity.class);
-//        orderEntity.setCreatedAt(new Date());
-//        orderRepository.save(orderEntity);
-//        OrderDto orderDto = modelMapper.map(orderEntity, OrderDto.class);
-
+        OrderEntity orderEntity = modelMapper.map(orderDto , OrderEntity.class);
+        orderEntity.setCreatedAt(new Date());
+        orderRepository.save(orderEntity);
         kafkaProducerService.produceOrderCatalogMessage(orderDto);
-        kafkaProducerService.produceOrderDbSyncMessage(orderDto);
-        return orderDto;
+//        kafkaProducerService.produceOrderDbSyncMessage(orderDto);
+        return modelMapper.map(orderEntity, OrderDto.class);
     }
 
     @Override

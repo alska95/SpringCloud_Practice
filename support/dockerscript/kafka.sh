@@ -1,4 +1,9 @@
 #!/bin/bash
 
-# Kafka와 Zookeeper 실행
-docker-compose -f docker-compose-single-broker.yml up -d
+if [ "$1" = "start" ]; then
+  docker-compose -f docker-compose-single-broker.yml up -d
+elif [ "$1" = "stop" ]; then
+    docker-compose -f docker-compose-single-broker.yml down
+else
+    echo "Unknown command '$1'. Use 'start' or 'stop'."
+fi

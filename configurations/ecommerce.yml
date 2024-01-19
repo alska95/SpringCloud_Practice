@@ -11,7 +11,7 @@ kafka:
       catalog: 'order-catalog'
       sync: 'order-db-sync'
   broker:
-    uri: 'kafka:9092'
+    uri: 'dockerscript-kafka-1:9092'
 
 spring:
   zipkin:
