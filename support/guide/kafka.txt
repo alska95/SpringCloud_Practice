@@ -105,3 +105,5 @@
 * Docker
     docker compose이용해서 컨테이너 띄우기
     https://github.com/wurstmeister/kafka-docker
+    single broker로 띄웠는데 적어도 3개가 좋다 하니 추후에 수정할것
+        실패, 장애 대비, 확장성 고가용성 등등 때매
