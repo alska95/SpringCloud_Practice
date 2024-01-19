@@ -101,3 +101,7 @@
         "errors.retry.timeout" : 1000 //ms단위 동안 재시도하고 안되면 버림
     }
 }
+
+* Docker
+    docker compose이용해서 컨테이너 띄우기
+    https://github.com/wurstmeister/kafka-docker
